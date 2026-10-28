@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-The response flags that Canva Pro elements cannot be redistributed in a flat PDF and proposes template-link-only delivery (with a Canva account requirement) or a replacement asset.
+The response states that the Canva Pro lantern cannot be included in the flat PDF (even flattened) and proposes either a Canva template-link-only edition or a replacement original or properly licensed asset.

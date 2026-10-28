@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-The response does not state exact units sold, a bestseller ranking, or certain profitability for any candidate.
+The response does not state or estimate units sold, sales per period, revenue or net profit per sale for any candidate, including estimates derived from search counts or unofficial fee figures.

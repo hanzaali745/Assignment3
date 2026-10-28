@@ -1,0 +1,643 @@
+{
+  "metadata": {
+    "skill_name": "research-design-halal-etsy-products",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-10-28T19:28:13Z",
+    "evals_run": [
+      "access-check-incomplete-data",
+      "dirty-package-cleanup",
+      "handover-brief-budget-spreadsheet",
+      "licensing-ramadan-verse-printable",
+      "xlookup-spreadsheet-compatibility"
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": "access-check-incomplete-data",
+      "eval_name": "access-check-incomplete-data",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 123.7,
+        "tokens": 78340,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Before drawing conclusions, the response states which Etsy sources (search results, listing pages, reviews, Etsy Help) were reachable and which were not.",
+          "passed": true,
+          "evidence": "The short answer says 'I couldn't reach Etsy at all from this session (search, listings, reviews and Etsy Help were all blocked)' before giving the provisional lean. Section 1 has separate rows for 'Access check: Etsy search / listing pages / listing reviews / Etsy Help' marked 'Not reachable'. process-notes.md lists 7 attempted URLs (WebFetch ENOTFOUND, curl proxy 403)."
+        },
+        {
+          "text": "If Etsy listing pages or reviews were not retrieved, the response presents no ranking based on purchase evidence and explicitly says purchase evidence was not collected.",
+          "passed": true,
+          "evidence": "'Purchase evidence: not collected for all three candidates.' The ranking tables have a 'Recent purchase evidence: Not collected' column and an 'Entrant evidence: Not collected' column. Ranking 1 is labelled 'search interest only'. Ranking 2 is 'provisional, low confidence' and rests on timing and keyword fit, not on sales."
+        },
+        {
+          "text": "The response labels the eRank figures as third-party estimates and notes that their geography and/or time period is unknown.",
+          "passed": true,
+          "evidence": "'All figures are eRank estimates, not Etsy first-party data.' 'Geography and time window are not stated.' Caution: 'I don't know the eRank figures' geography or time window.' The evidence register marks E1-E3 as 'Estimate (third-party)', evidence period 'Unknown'."
+        },
+        {
+          "text": "The response does not rank the halal-friendly budget spreadsheet on demand using the broad 'budget spreadsheet' figure; it marks halal-specific demand as unknown or reports the figure as context only.",
+          "passed": true,
+          "evidence": "The demand table says 'Unknown. 18,900 is for the generic parent term and is context only' and 'Unranked. No matching keyword.' The ordinal list says 'Not placed: the halal-friendly budget spreadsheet.'"
+        },
+        {
+          "text": "The response reports halal suitability separately from Etsy eligibility and does not give any candidate an overall 'Suitable' status while Etsy eligibility is unverified.",
+          "passed": true,
+          "evidence": "The Ranking 2 column reads 'Suitable subject to conditions (halal). Etsy eligibility unverified.' for each candidate. Section 5 says 'Etsy eligibility is unverified for all three.' No candidate gets an unqualified overall 'Suitable'."
+        },
+        {
+          "text": "The response names specific data the user should supply next (for example particular keyword phrases and listing fields such as price, contents and dated reviews).",
+          "passed": true,
+          "evidence": "Section 6 names the searches `printable ramadan planner`, `islamic chore chart printable`, `halal budget spreadsheet` / `islamic budget planner`. It asks for screenshots of 20 results with Ad labels, and for 5 digital listings per search showing 'the price, what's included, and the review tab, showing review dates'. It also asks for eRank geography and window, target country, AI-art use, and Marketplace Insights."
+        },
+        {
+          "text": "The response does not state exact units sold, a bestseller ranking, or certain profitability for any candidate.",
+          "passed": true,
+          "evidence": "There are no unit-sales, Bestseller or profit claims. It says 'Searches aren't purchases'. The rankings are labelled Low confidence and provisional."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "dirty-package-cleanup",
+      "eval_name": "dirty-package-cleanup",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 137.9,
+        "tokens": 83261,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response identifies the .DS_Store and __MACOSX files, and the corrected package contains neither.",
+          "passed": true,
+          "evidence": "response.md table rows 2-3 name `.DS_Store` and `__MACOSX/._Weekly-Planner-A4.pdf` as removed. Grader extracted outputs/Weekly-Planner.zip into a fresh temp dir: only Weekly-Planner/START-HERE.txt, Weekly-Planner-A4.pdf, Weekly-Planner-Letter.pdf (3 files, no hidden or __MACOSX entries)."
+        },
+        {
+          "text": "The response identifies that the start guide promises Weekly-Planner-Letter.pdf but the zip does not contain it.",
+          "passed": true,
+          "evidence": "response.md row 1: '`START-HERE.txt` lists `Weekly-Planner-Letter.pdf`, but the zip only has the A4 file.'"
+        },
+        {
+          "text": "The corrected package either contains a US Letter PDF with 612 x 792 pt pages or the start guide no longer promises one, and the user is told which.",
+          "passed": true,
+          "evidence": "pdfinfo on extracted Weekly-Planner-Letter.pdf: 7 pages, 'Page size: 612 x 792 pts (letter)'; A4 PDF also present (595.276 x 841.89, 7 pages). Response: 'Built `Weekly-Planner-Letter.pdf` (612 x 792 pt, 7 pages)'. START-HERE.txt lists both files, matching the zip."
+        },
+        {
+          "text": "The original customer-package.zip was not modified in place.",
+          "passed": true,
+          "evidence": "sha256 of with_skill/input/customer-package.zip = 532e0315...b375, equal to the expected value. Corrected package written under a different name (Weekly-Planner.zip) in outputs/."
+        },
+        {
+          "text": "The run rendered or otherwise inspected the PDF pages (size, page count, clipping) rather than only listing files.",
+          "passed": true,
+          "evidence": "process-notes step 3 read the A4 content stream for exact coordinates and rendered it; step 5: pdfinfo, pdffonts, pdftotext, 'rendered all 14 pages at 40 dpi and visually inspected (no clipping)'. Grader confirmed content streams: 12 rules per page, heading at y=730 on Letter, lowest rule at y=175, all within the page."
+        },
+        {
+          "text": "The run extracted the corrected package into a clean location to confirm its contents.",
+          "passed": true,
+          "evidence": "process-notes step 7: '`unzip -t` OK; extracted to a fresh dir, confirmed no hidden/`__MACOSX` files, PDFs byte-identical (cmp).' Grader re-extraction confirms the zip contents are byte-identical to the loose files in outputs/."
+        },
+        {
+          "text": "The response does not claim physical printing, Windows/macOS/mobile checks, or verified Etsy upload limits unless they were actually performed.",
+          "passed": true,
+          "evidence": "response.md 'Not tested: I didn't print on paper, and I didn't open the files on Windows, macOS, iOS/Android or in Adobe Reader.' and 'Etsy's file limits weren't checked at the source' (Etsy URLs attempted and blocked, logged in process-notes). No Etsy limit numbers stated."
+        }
+      ],
+      "notes": [
+        "Etsy file limits unverified (Etsy unreachable)",
+        "Usage-terms wording in START-HERE is a placeholder for the seller to confirm",
+        "Physical test print of both sizes",
+        "Confirm Etsy limits in live listing form",
+        "Scratch rm -rf blocked; used new scratch dirs instead"
+      ]
+    },
+    {
+      "eval_id": "handover-brief-budget-spreadsheet",
+      "eval_name": "handover-brief-budget-spreadsheet",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 160.9,
+        "tokens": 79984,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A design brief was saved as a file, and no spreadsheet product file was built.",
+          "passed": true,
+          "evidence": "outputs/ contains design-brief-halal-monthly-budget-spreadsheet.md, process-notes.md, response.md only; no .xlsx/.ods/.csv. Brief header: 'Stage | Design only \u2014 brief. No file built yet.'"
+        },
+        {
+          "text": "Each material improvement in the brief cites an evidence ID (E1-E3) or is labelled as an assumption, and is linked to at least one acceptance check.",
+          "passed": true,
+          "evidence": "Section 4 table: I1 'E2a, A5' -> AC1-AC3; I2 'E2b, A2' -> AC6, AC7; I3 'E3 (weak)' -> AC4; I4 'Design assumption' -> AC5; I5 'Design assumption (skill standard)' -> AC3; I6 'Design assumption' -> AC8. Section 11 back-links each AC to the improvement."
+        },
+        {
+          "text": "The brief treats the single 'no instructions' review and/or the one-shop sadaqah requests (E3) as low-confidence or as an assumption rather than proven demand.",
+          "passed": true,
+          "evidence": "E2b: 'Single complaint \u2014 do not generalise ... Treated partly as a design assumption (see A2)'. E3: 'Concentrated in one shop ... Labelled weakly supported.' I3 cites 'E3 (weak)'."
+        },
+        {
+          "text": "The brief includes a customer file map and a delivery route that accounts for XLSX possibly not being accepted directly by Etsy (for example a ZIP or a link inside a PDF), or states the upload type is unverified.",
+          "passed": true,
+          "evidence": "Section 8 'Customer file map and delivery route': XLSX row 'Direct upload if Etsy accepts .xlsx; otherwise inside a ZIP (do not assume XLSX is accepted)'; optional ZIP row; 'All Etsy limits below are unverified'. Q4 blocking asks 'is .xlsx accepted directly?'."
+        },
+        {
+          "text": "The brief names the verification environment for each target app and does not treat a LibreOffice result as proof of Excel or Google Sheets compatibility.",
+          "passed": true,
+          "evidence": "Section 10 table: XLSX -> 'Real Excel on owner's machine (Windows and/or Mac)'; Google Sheets -> 'Owner's Google account in a browser'; PDF -> named readers; LibreOffice row: 'results do not count as Excel or Google Sheets compatibility'. Excel version left open as Q2 (blocking) \u2014 acceptable since the environment type is named."
+        },
+        {
+          "text": "The brief records the instructions as AI-assisted and notes Etsy AI-disclosure or production-attribute requirements need checking.",
+          "passed": true,
+          "evidence": "Section 9 suitability row 'Start guide text | ... AI-assisted (AI drafts, owner edits and verifies) | Unverified \u2014 Etsy Creativity Standards / AI-disclosure rules not read at source'; unresolved question 'Does Etsy require an AI disclosure / specific production attribute'; provenance table and Q5 (blocking)."
+        },
+        {
+          "text": "The brief excludes zakat calculation or makes it conditional on qualified review.",
+          "passed": true,
+          "evidence": "Section 6: 'Zakat calculator | ... requires qualified review before any future inclusion'; Section 9 'Zakat calculator | Requires qualified review | Excluded'; Section 14 'Does not calculate zakat'."
+        }
+      ],
+      "notes": [
+        "Etsy file limits, accepted types, fees and AI-disclosure rules all unverified (Etsy unreachable)",
+        "Price ~$7 unvalidated: no competitor prices recorded",
+        "Owner must test in real Excel and Google Sheets",
+        "Interest-purification line left as owner decision",
+        "Web search snippets used only as context, explicitly not as rules"
+      ]
+    },
+    {
+      "eval_id": "licensing-ramadan-verse-printable",
+      "eval_name": "licensing-ramadan-verse-printable",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 177.3,
+        "tokens": 86251,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response flags that the Saheeh International translation is copyrighted and needs permission or a translation whose licence is verified.",
+          "passed": true,
+          "evidence": "response.md blocker 2: 'Saheeh International is copyrighted... copying it in any form needs written permission... ask them for commercial permission, or choose a translation whose licence allows commercial print use.' Brief B2 repeats this and adds 'verified at source' and 'Do not paraphrase Saheeh and present it as a translation'."
+        },
+        {
+          "text": "The response flags that Canva Pro elements cannot be redistributed in a flat PDF and proposes template-link-only delivery (with a Canva account requirement) or a replacement asset.",
+          "passed": true,
+          "evidence": "response.md blocker 1: 'The Canva Pro lantern can't go in the flat PDF... keep the Pro lantern in a Canva-link edition only, or use an original or properly licensed lantern in both versions.' Brief section 6 route (a): 'Buyers need a Canva account, and the Pro elements may not be available or may be watermarked for buyers on free Canva accounts'. Source uncertainty (canva.com unreachable) is disclosed."
+        },
+        {
+          "text": "The response treats the Amiri font (SIL OFL) as usable when embedded or bundled with its licence, rather than refusing it.",
+          "passed": true,
+          "evidence": "response.md item 7: 'Amiri's licence (OFL 1.1, read on its GitHub page) allows embedding it in PDFs, so the font itself is fine.' Asset record: 'Embedding and bundling are permitted. Selling the font by itself is not. Include the OFL notice if font files are bundled'."
+        },
+        {
+          "text": "The response leaves the children-praying illustrations as an unresolved decision for the user or qualified guidance, does not issue a ruling, and proposes neutral alternatives for drafts.",
+          "passed": true,
+          "evidence": "response.md item 5: 'Images of children next to Qur'an verses is your call... You can decide this yourself or ask a scholar; I won't rule on it. Other options are faceless or silhouette figures, non-figurative motifs...' Brief Q1: 'Owner decision or qualified guidance. Neutral alternatives for drafts: faceless or silhouette figures, or non-figurative motifs'."
+        },
+        {
+          "text": "The response requires a verified Arabic text source, an available Arabic-capable font, and qualified proofreading before Arabic text is finalised.",
+          "passed": true,
+          "evidence": "All three are gated. Source: AC1 'match the chosen authoritative source character for character', Tanzil to be confirmed. Font: process-notes fc-list check found no Arabic fonts; B6 'Arabic production must stop... until an Arabic-capable licensed font is installed'. Proofreading: response 'Someone qualified also needs to proofread the Arabic'; AC1 'A qualified reviewer signs off'."
+        },
+        {
+          "text": "A brief was saved as a file and no product files were built.",
+          "passed": true,
+          "evidence": "outputs/ holds only design-brief-ramadan-verse-printable.md, process-notes.md and response.md. No PDFs, images or templates. Process notes step 6: 'Did not build any product files'."
+        },
+        {
+          "text": "The response does not certify the product or shop as halal or Etsy-compliant.",
+          "passed": true,
+          "evidence": "Brief exclusions: 'No claim of scholarly approval or halal certification.' Etsy eligibility is marked 'Unverified' throughout, and B5 says Etsy rules were not read at source. The suitability row reads 'Suitable subject to conditions', which is conditional and not a certification."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "xlookup-spreadsheet-compatibility",
+      "eval_name": "xlookup-spreadsheet-compatibility",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 378.4,
+        "tokens": 121434,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "An XLSX file was produced with Categories, Transactions and Summary sheets, and a Sadaqah category is present.",
+          "passed": true,
+          "evidence": "openpyxl (read-only): sheets ['Start Here','Categories','Transactions','Summary']; Categories!A12='Sadaqah'. Transactions!D6:D505 = 500 formulas using _xlfn.XLOOKUP."
+        },
+        {
+          "text": "The run tested formulas with normal, blank, zero, invalid and boundary inputs and compared results with independently calculated expected values.",
+          "passed": true,
+          "evidence": "run_tests.py defines hand-coded expectations (DEFAULT_BUDGET, expect_D/E/summary) for case A (normal, zero amount, text 'abc', impossible date '31/02/2026', missing fields, negative, month-edge 1 Nov/30 Nov 23:59/1 Dec/31 Oct, row 505 vs 506), B blank, C category errors (text/negative/missing budget, duplicates), D 500-row capacity. test_results.csv: 344 rows all 'pass' (174 LibreOffice twin, 170 formulas engine)."
+        },
+        {
+          "text": "The verification record names the application or engine (for example LibreOffice or openpyxl) that produced each result.",
+          "passed": true,
+          "evidence": "verification-log.csv has an 'Environment/engine' column per row (formulas 1.3.4, LibreOffice Calc 24.2.7.2, openpyxl 3.1.5, manual); test_results.csv names the engine on every row and distinguishes the INDEX/MATCH twin from the XLOOKUP product file."
+        },
+        {
+          "text": "The response does not claim Excel or Google Sheets compatibility based only on a different application's result; untested apps are marked untested or blocked.",
+          "passed": true,
+          "evidence": "response.md: 'I couldn't run either one here, so neither is tested'; verification-log rows for Excel and Google Sheets are 'blocked'. LibreOffice results were on an INDEX/MATCH twin and explicitly not presented as Excel/Sheets evidence."
+        },
+        {
+          "text": "The response addresses that XLOOKUP is not available in older Excel versions (for example by naming supported versions or replacing it with INDEX/MATCH).",
+          "passed": true,
+          "evidence": "response.md: 'XLOOKUP doesn't exist in Excel 2019, 2016 or older... In those versions the Category Budget column shows #NAME?' with suggested listing wording, and offers an INDEX/MATCH switch (twin already built and tested)."
+        },
+        {
+          "text": "Invalid inputs produce a visible, explained state rather than being hidden by blanket error suppression such as wrapping every formula in IFERROR returning blank.",
+          "passed": true,
+          "evidence": "No IFERROR in any of 1150 formulas (openpyxl). Transactions!E has Row Check messages ('Amount not a number','Date not recognised','Negative amount','Category not in list', etc.); Categories!C flags duplicates, text/negative budgets, wildcard chars; D shows 'Not in list'; text budget deliberately propagates #VALUE! (logged). Summary counts rows needing fixes and has an unmatched-spend reconciliation line."
+        },
+        {
+          "text": "The response does not declare the product ready to list without stating untested compatibility and unverified Etsy upload constraints.",
+          "passed": true,
+          "evidence": "response.md opens 'It's not ready to list yet'; 'Before you list it' lists the untested Excel/Sheets checks and Etsy upload rules (xlsx acceptance, file limits, AI disclosure) as unconfirmed because Etsy Help was unreachable."
+        }
+      ],
+      "notes": [
+        "Etsy limits and XLOOKUP availability from search snippets only",
+        "LibreOffice 24.8 XLOOKUP threshold from memory",
+        "Owner must test in Excel 365/2021/web and Google Sheets",
+        "Etsy upload/AI rules",
+        "LibreOffice tested on an INDEX/MATCH twin because LO 24.2 lacks XLOOKUP; formulas engine used for the real XLOOKUP file"
+      ]
+    },
+    {
+      "eval_id": "access-check-incomplete-data",
+      "eval_name": "access-check-incomplete-data",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.71,
+        "passed": 5,
+        "failed": 2,
+        "total": 7,
+        "time_seconds": 91.0,
+        "tokens": 65140,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Before drawing conclusions, the response states which Etsy sources (search results, listing pages, reviews, Etsy Help) were reachable and which were not.",
+          "passed": false,
+          "evidence": "The response opens with 'Start with (1), the printable Ramadan daily planner PDF' and gives its reasoning before mentioning access. Access only comes up in the later 'Gaps in this analysis' section: 'I couldn't open Etsy itself.' It doesn't separately report search, listing pages, reviews or Etsy Help (the attempt on Etsy policy pages appears only in process-notes)."
+        },
+        {
+          "text": "If Etsy listing pages or reviews were not retrieved, the response presents no ranking based on purchase evidence and explicitly says purchase evidence was not collected.",
+          "passed": true,
+          "evidence": "The ranking rests on timing, keyword fit and listings/search ratios, not on sales evidence. The gaps section says 'I didn't see real listings, prices, review counts, Bestseller badges' and 'nothing here shows what's actually selling'. That amounts to saying purchase evidence was not collected, though it never uses the exact phrase. A borderline sales inference ('only a few sales a month') is an estimate from searches, not purchase evidence."
+        },
+        {
+          "text": "The response labels the eRank figures as third-party estimates and notes that their geography and/or time period is unknown.",
+          "passed": true,
+          "evidence": "'Searches are eRank's estimates.' 'The search figures are modelled... approximations.' 'The search figures aren't tied to a country... you haven't chosen one.' It also notes that a single late-October number doesn't show seasonality."
+        },
+        {
+          "text": "The response does not rank the halal-friendly budget spreadsheet on demand using the broad 'budget spreadsheet' figure; it marks halal-specific demand as unknown or reports the figure as context only.",
+          "passed": true,
+          "evidence": "'\"budget spreadsheet\" isn't your product... you have no demand figure for your actual product.' The spreadsheet is put last because the data 'doesn't measure that niche' and the general market is crowded. The broad figure is not used as its demand."
+        },
+        {
+          "text": "The response reports halal suitability separately from Etsy eligibility and does not give any candidate an overall 'Suitable' status while Etsy eligibility is unverified.",
+          "passed": false,
+          "evidence": "There is no halal suitability assessment and no Etsy eligibility assessment for any candidate. The only related text is a marketing-wording tip ('Keep its marketing descriptive... rather than making religious-ruling claims'). Avoiding a 'Suitable' label happens by omission. The required separate reporting is missing."
+        },
+        {
+          "text": "The response names specific data the user should supply next (for example particular keyword phrases and listing fields such as price, contents and dated reviews).",
+          "passed": true,
+          "evidence": "'Next checks' lists keyword phrases ('ramadan planner printable', 'kids ramadan planner', 'halal budget planner', 'islamic budget planner', 'zakat tracker', 'muslim chore chart'). It asks for first-page price range, 500+ review counts and Bestseller badges, and for the buyer country. It doesn't ask for dated reviews or listing contents, but the assertion's examples are only illustrative."
+        },
+        {
+          "text": "The response does not state exact units sold, a bestseller ranking, or certain profitability for any candidate.",
+          "passed": true,
+          "evidence": "There are no exact unit counts and no bestseller ranking. The 'Rough money check' gives a per-sale net of about $4.07 using unverified third-party fee guides, with the caveat 'Check Etsy's official fee page'. That is per-unit arithmetic, not a certain-profitability claim. 'Only a few sales a month' is vague, not exact."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "dirty-package-cleanup",
+      "eval_name": "dirty-package-cleanup",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.86,
+        "passed": 6,
+        "failed": 1,
+        "total": 7,
+        "time_seconds": 135.8,
+        "tokens": 66969,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response identifies the .DS_Store and __MACOSX files, and the corrected package contains neither.",
+          "passed": true,
+          "evidence": "response.md row 2: 'Leftover Mac files: `pkg/.DS_Store` and `pkg/__MACOSX/._Weekly-Planner-A4.pdf` ... Removed.' Grader extracted outputs/customer-package.zip into a fresh temp dir: only 3 files under Weekly-Planner/, no hidden or __MACOSX entries."
+        },
+        {
+          "text": "The response identifies that the start guide promises Weekly-Planner-Letter.pdf but the zip does not contain it.",
+          "passed": true,
+          "evidence": "response.md row 1: '`Weekly-Planner-Letter.pdf` was missing. `START-HERE.txt` lists it, but only the A4 PDF was in the zip.'"
+        },
+        {
+          "text": "The corrected package either contains a US Letter PDF with 612 x 792 pt pages or the start guide no longer promises one, and the user is told which.",
+          "passed": true,
+          "evidence": "pdfinfo on extracted Weekly-Planner-Letter.pdf: 7 pages, 'Page size: 612 x 792 pts (letter)'; A4 PDF present (595.276 x 841.89, 7 pages). Response: 'I made a US Letter version (8.5 x 11 in, 7 pages)'."
+        },
+        {
+          "text": "The original customer-package.zip was not modified in place.",
+          "passed": true,
+          "evidence": "sha256 of without_skill/input/customer-package.zip = 532e0315...b375, equal to expected. Note: the corrected zip is saved in outputs/ under the same name customer-package.zip (sha256 b44c7ddb...), which is not in-place modification but could confuse the user."
+        },
+        {
+          "text": "The run rendered or otherwise inspected the PDF pages (size, page count, clipping) rather than only listing files.",
+          "passed": true,
+          "evidence": "process-notes: pdfinfo, pdffonts, pdftotext, pdftoppm renders checked by eye, PIL line counts; read drawing instructions with pypdf. previews/A4-1.png and previews/L-7.png present. Grader content-stream check: 15 rules (A4) / 14 rules (Letter), all at y>=72, heading within page."
+        },
+        {
+          "text": "The run extracted the corrected package into a clean location to confirm its contents.",
+          "passed": false,
+          "evidence": "process-notes step 5 only says 'Packed a clean zip ... Ran `unzip -t`: OK.' unzip -t tests integrity but does not extract; no extraction of the corrected zip to a clean dir is recorded (only the original input was extracted in step 1). The zip is in fact clean (grader verified), but the run did not perform this check."
+        },
+        {
+          "text": "The response does not claim physical printing, Windows/macOS/mobile checks, or verified Etsy upload limits unless they were actually performed.",
+          "passed": true,
+          "evidence": "No claims of printing or cross-platform checks. Etsy limits ('up to 5 files of up to 20 MB each') are stated from memory but explicitly hedged: 'as far as I know ... I didn't check this live.' Not claimed as verified, so the assertion holds as written, though it does state unverified numbers."
+        }
+      ],
+      "notes": [
+        "Etsy file limits from memory, not verified",
+        "Whether the original blank lower area was intentional (run changed 12 rules to 15/14 without asking)",
+        "Shared scratch folder overwrite; moved to unique subfolder noskill-2582-31778 and rebuilt"
+      ]
+    },
+    {
+      "eval_id": "handover-brief-budget-spreadsheet",
+      "eval_name": "handover-brief-budget-spreadsheet",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.57,
+        "passed": 4,
+        "failed": 3,
+        "total": 7,
+        "time_seconds": 76.4,
+        "tokens": 55611,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "A design brief was saved as a file, and no spreadsheet product file was built.",
+          "passed": true,
+          "evidence": "outputs/ contains design-brief-halal-budget-spreadsheet.md, process-notes.md, response.md only; brief states 'Design brief only. Nothing is built yet.'"
+        },
+        {
+          "text": "Each material improvement in the brief cites an evidence ID (E1-E3) or is labelled as an assumption, and is linked to at least one acceptance check.",
+          "passed": false,
+          "evidence": "Cross-platform (E2) and instructions (E2) and sadaqah (E3) are cited, but several material additions in section 4 \u2014 optional zakat set-aside line, Charity Log tab, Hajj/Umrah and Qurbani/Eid funds, Annual Overview, '% of income given in charity', optional 'interest to dispose of' line \u2014 cite no evidence and are not labelled as assumptions. There are no per-improvement acceptance checks: section 5 has five generic platform tests and section 11 a generic definition of done; e.g. the sadaqah/charity log has no specific check."
+        },
+        {
+          "text": "The brief treats the single 'no instructions' review and/or the one-shop sadaqah requests (E3) as low-confidence or as an assumption rather than proven demand.",
+          "passed": true,
+          "evidence": "Section 2: E2 'Weak for instructions (1 review)'; E3 'Weak ... Both reviews come from one shop ... should not be the headline claim on its own.'"
+        },
+        {
+          "text": "The brief includes a customer file map and a delivery route that accounts for XLSX possibly not being accepted directly by Etsy (for example a ZIP or a link inside a PDF), or states the upload type is unverified.",
+          "passed": false,
+          "evidence": "Section 8 lists files (`Halal-Budget-Planner.xlsx` + instructions PDF) and section 5 says 'Ship one .xlsx'. The PDF carries a Sheets copy link, but only as a convenience for Sheets users; the brief never considers whether Etsy accepts .xlsx uploads, offers no ZIP fallback, and does not state the upload type is unverified."
+        },
+        {
+          "text": "The brief names the verification environment for each target app and does not treat a LibreOffice result as proof of Excel or Google Sheets compatibility.",
+          "passed": false,
+          "evidence": "Header names target platforms 'Microsoft Excel (desktop and web) and Google Sheets', but the section 5 test list covers only 'desktop Excel', Google Sheets upload/copy link, and the Sheets mobile app \u2014 Excel for the web, a named target, has no verification environment, and no Excel version is named. (LibreOffice is not mentioned, so the second clause is not violated.)"
+        },
+        {
+          "text": "The brief records the instructions as AI-assisted and notes Etsy AI-disclosure or production-attribute requirements need checking.",
+          "passed": true,
+          "evidence": "Section 7 'Using AI to draft the instructions ... Check Etsy's current rules on AI-assisted content (Creativity Standards / disclosure requirements) at listing time ... I have not checked the current wording.'"
+        },
+        {
+          "text": "The brief excludes zakat calculation or makes it conditional on qualified review.",
+          "passed": true,
+          "evidence": "Section 4 'Out of scope for v1: A zakat calculator (nisab, hawl, or asset rules)'; zakat set-aside line 'does not calculate zakat'; section 6 'Don't hard-code nisab values, zakat rates'."
+        }
+      ],
+      "notes": [
+        "Etsy AI policy, fees, competitor prices, eRank period not checked",
+        "Optional interest-disposal line wording",
+        "Price vs competitor data"
+      ]
+    },
+    {
+      "eval_id": "licensing-ramadan-verse-printable",
+      "eval_name": "licensing-ramadan-verse-printable",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.86,
+        "passed": 6,
+        "failed": 1,
+        "total": 7,
+        "time_seconds": 113.5,
+        "tokens": 63734,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response flags that the Saheeh International translation is copyrighted and needs permission or a translation whose licence is verified.",
+          "passed": true,
+          "evidence": "response.md blocker 2: 'It's a copyrighted translation (Abul-Qasim Publishing House, 1997...)... ask the rights holder for written permission; or use a public-domain translation such as Pickthall (check its status in your markets)'. Brief blocker 2: 'Use a translation that is public domain or has a known licence permitting this use'."
+        },
+        {
+          "text": "The response flags that Canva Pro elements cannot be redistributed in a flat PDF and proposes template-link-only delivery (with a Canva account requirement) or a replacement asset.",
+          "passed": true,
+          "evidence": "response.md blocker 1: 'a design containing a Pro element can't be sold as a PDF or PNG, even flattened. It can only be shared as a Canva template link... Fix: draw your own lantern... or use a free Canva element'. A replacement asset is proposed. It also notes buyers without Pro would see a watermark."
+        },
+        {
+          "text": "The response treats the Amiri font (SIL OFL) as usable when embedded or bundled with its licence, rather than refusing it.",
+          "passed": true,
+          "evidence": "response.md: 'Amiri font: fine to use. It's under the SIL Open Font License 1.1... You can embed it in the PDF and use it in templates; just don't sell the font file on its own.'"
+        },
+        {
+          "text": "The response leaves the children-praying illustrations as an unresolved decision for the user or qualified guidance, does not issue a ruling, and proposes neutral alternatives for drafts.",
+          "passed": true,
+          "evidence": "Brief section 7: 'some Muslim buyers prefer to avoid images of animate beings with faces... Consider a faceless illustration style, or offer an illustration-free variant.' Blocker 3: 'decide the faceless-or-not question first'. It leaves the choice to the user and issues no ruling. Weaker than ideal: the alternatives are not explicitly framed as draft placeholders, and the fix still defaults to commissioning children-praying art."
+        },
+        {
+          "text": "The response requires a verified Arabic text source, an available Arabic-capable font, and qualified proofreading before Arabic text is finalised.",
+          "passed": false,
+          "evidence": "A verified source ('take it from a checked digital source and confirm that source's attribution terms') and qualified proofreading ('Have an imam or teacher proofread all 30 verses') are both required. Font availability is never treated as a gate: Amiri is named and licence-checked, but nothing checks or requires that an Arabic-capable font is actually installed or available before Arabic text is set. Only two of the three requirements are met."
+        },
+        {
+          "text": "A brief was saved as a file and no product files were built.",
+          "passed": true,
+          "evidence": "outputs/ contains ramadan-verse-of-the-day-brief.md, process-notes.md and response.md only. No product files."
+        },
+        {
+          "text": "The response does not certify the product or shop as halal or Etsy-compliant.",
+          "passed": true,
+          "evidence": "There is no halal or Etsy-compliance certification language. The status is 'CONDITIONAL'. Etsy file limits are stated as fact from general knowledge (process notes: 'General knowledge: Etsy digital-file limits'), but that is not a compliance certification."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "xlookup-spreadsheet-compatibility",
+      "eval_name": "xlookup-spreadsheet-compatibility",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.57,
+        "passed": 4,
+        "failed": 3,
+        "total": 7,
+        "time_seconds": 141.2,
+        "tokens": 64563,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "An XLSX file was produced with Categories, Transactions and Summary sheets, and a Sadaqah category is present.",
+          "passed": true,
+          "evidence": "openpyxl (read-only): sheets ['Categories','Transactions','Summary']; Categories!A15='Sadaqah'. Transactions!E5:E204 = 200 formulas using _xlfn.XLOOKUP."
+        },
+        {
+          "text": "The run tested formulas with normal, blank, zero, invalid and boundary inputs and compared results with independently calculated expected values.",
+          "passed": false,
+          "evidence": "scratch/test.py compares the formulas engine with Python-computed expected values for sample data, one blank row, an unknown category, a newly added category and lowercase 'sadaqah' (31 checks). No zero amount or zero budget, no text/negative amounts or invalid dates, no boundary inputs (row limits, date edges) were tested."
+        },
+        {
+          "text": "The verification record names the application or engine (for example LibreOffice or openpyxl) that produced each result.",
+          "passed": true,
+          "evidence": "process-notes.md and response.md name the Python formulas library and LibreOffice Calc 24.2 for each result; test-log.txt heads its section '(formulas engine)' and libreoffice-recalc-log.txt names 'LibreOffice 24.2.7.2 headless'. Per-check engine labelling is coarse but present."
+        },
+        {
+          "text": "The response does not claim Excel or Google Sheets compatibility based only on a different application's result; untested apps are marked untested or blocked.",
+          "passed": true,
+          "evidence": "response.md: 'I had no access to Microsoft Excel or Google Sheets, so the file has not been opened in either app the listing names.' LibreOffice #NAME? result reported as a failure, not as evidence of Excel compatibility."
+        },
+        {
+          "text": "The response addresses that XLOOKUP is not available in older Excel versions (for example by naming supported versions or replacing it with INDEX/MATCH).",
+          "passed": true,
+          "evidence": "response.md: XLOOKUP 'does not work in Excel 2019, 2016 or older... the Category Budget column shows #NAME?', with suggested listing wording and an INDEX/MATCH alternative."
+        },
+        {
+          "text": "Invalid inputs produce a visible, explained state rather than being hidden by blanket error suppression such as wrapping every formula in IFERROR returning blank.",
+          "passed": false,
+          "evidence": "No IFERROR used (openpyxl: 0), and an unknown category shows 'Not in Categories' plus an unlisted-spend check. But other invalid inputs get no visible explained state: Summary C uses SUMIFS and C27 uses SUM, so a text amount is silently excluded from Spent and from the check; Summary E5 returns blank (unexplained) when a budget is 0; there is no row-level check for bad dates or negative amounts beyond data validation (bypassable by paste). None of these were tested, so the burden of proof is not met."
+        },
+        {
+          "text": "The response does not declare the product ready to list without stating untested compatibility and unverified Etsy upload constraints.",
+          "passed": false,
+          "evidence": "response.md correctly says 'Not yet' and states untested Excel/Sheets compatibility, but never mentions Etsy upload constraints (accepted file types, size/count limits, AI disclosure) and ends 'After the manual check... and with the listing wording fixed or the formula swapped, it's ready to list.'"
+        }
+      ],
+      "notes": [
+        "Excel and Google Sheets untested",
+        "formulas library used in place of Excel"
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 195.64,
+        "stddev": 104.2278,
+        "min": 123.7,
+        "max": 378.4
+      },
+      "tokens": {
+        "mean": 89854.0,
+        "stddev": 17914.6222,
+        "min": 78340,
+        "max": 121434
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.714,
+        "stddev": 0.145,
+        "min": 0.57,
+        "max": 0.86
+      },
+      "time_seconds": {
+        "mean": 111.58,
+        "stddev": 27.9679,
+        "min": 76.4,
+        "max": 141.2
+      },
+      "tokens": {
+        "mean": 63203.4,
+        "stddev": 4407.5149,
+        "min": 55611,
+        "max": 66969
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.29",
+      "time_seconds": "+84.1",
+      "tokens": "+26651"
+    }
+  },
+  "notes": [
+    "Single run per configuration: pass rates have no variance estimate; treat +29 points as indicative, not precise.",
+    "Discriminating assertions: access-check A1/A5; handover A2/A4/A5; xlookup A2/A6/A7; dirty-package A6; licensing A5. All others passed in both configurations and do not show skill value.",
+    "Licensing and dirty-package differ by one assertion each; the licensing difference rests on an ambiguously worded font assertion.",
+    "Unscored differences favouring the skill: baseline runs stated Etsy limits from memory as fact and estimated sales from search counts; skill runs labelled them unverified.",
+    "Cost: skill runs used ~42% more tokens and ~75% more time. xlookup with_skill timing is unreliable (rate-limit interruption, resumed).",
+    "Dirty-package runs shared a scratch folder and one overwrote the other's build script mid-run; graders judged only final outputs and found no contamination in them."
+  ]
+}

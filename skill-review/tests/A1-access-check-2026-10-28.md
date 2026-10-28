@@ -72,3 +72,36 @@ Gate 3 says not to assign "Suitable" when eligibility is unverified. The agent r
 - One run with invented eRank figures.
 - The agent is the same underlying model family as the reviewer.
 - A pass shows the instruction is followed in this scenario. It does not show the research is commercially correct.
+
+---
+
+## Rerun after fixes G1 and G2
+
+- **Date:** 2026-10-28
+- **Skill version:** the commit that follows d02111b
+- **Setup:** same request, same invented eRank figures, and a new fresh agent with no context from this conversation.
+
+| Criterion | Result | Evidence from the run |
+|---|---|---|
+| Access check run and recorded | **Pass** | It tried Etsy search, Etsy Help, eRank and the Creativity Standards page. All four returned ENOTFOUND, and the agent recorded the failures. |
+| No purchase-evidence ranking | **Pass** | Stated "Purchase evidence was not collected." |
+| Etsy rules found only via search snippets marked unverified (N1) | **Pass** | File limits were marked as coming from a snippet only, and XLSX support was marked unverified. |
+| Equal tool budget (N5) | **Pass** | One keyword per idea. In its "next step" it proposed two keywords per idea. |
+| Exact list of what the user should supply | **Pass** | Named six specific keywords, asked for about 10 listings per idea from different shops, and asked for the domains to be allowed, the target country, and how the product would be made. |
+| G1: broad parent keyword not ranked | **Pass** | Budget spreadsheet: "Not ranked … demand for a *halal-friendly* version is unknown." |
+| G2: halal status separate from eligibility, no overall Suitable | **Pass** | Gate table has separate Halal and Etsy-eligibility rows. Output states "none of the three is 'Suitable' overall yet." |
+| Entry ranking when evidence is missing | **Pass (better than the first run)** | "There isn't enough evidence to rank these in order." It gave a provisional lead to check instead. |
+
+**Overall:** both fixes worked as intended, and no new failure appeared.
+
+### Remaining observation (no change made)
+
+The "ramadan planner" keyword is also broader than the candidate, a *printable daily* planner. The agent still ranked it, while stating the mismatch, Low confidence and a "partly matches" label. The G1 rule does not say how close a keyword has to be to count as matching.
+
+This did not change the outcome, so no edit was made. Revisit it only if a later test shows a partial match changing which product gets selected.
+
+### Limits
+
+- Two single runs on one scenario, using invented figures.
+- The agents are the same model family as the reviewer.
+- A pass shows the instructions are followed. It does not show the research findings would be commercially correct.

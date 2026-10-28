@@ -45,3 +45,8 @@ The five changes below are all that changed. All other wording is preserved from
 ### Not applied (recommended, pending owner decision)
 
 R1–R8 and O1–O4 from the review.
+
+## 2026-10-28 — Fixes from test A1 (skill-review/tests/A1-access-check-2026-10-28.md)
+
+- **G1 (Part 3, Collect demand evidence):** demand is now ranked only on keywords that match the candidate. A broader parent keyword is reported as context, and the candidate's own demand is marked unknown.
+- **G2 (Part 1, gate 3):** when eligibility is unverified, Etsy eligibility is recorded separately from the halal status, and neither Suitable status may be given overall.

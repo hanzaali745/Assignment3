@@ -87,7 +87,7 @@ Do not use an arbitrary weighted total to hide a failed requirement:
 
 1. **Demand:** relevant Etsy searches and/or recent purchase signals, with gaps labelled.
 2. **Entry:** plausible buyer-specific advantage and competition assessment.
-3. **Suitability:** halal screen, asset provenance and Etsy eligibility. Before shortlisting, record the intended production method (original, licensed, AI-assisted, AI-generated) and check it against Etsy's current Creativity Standards, AI rules and listing-image requirements for that product type. If those cannot be read at source, mark eligibility "unverified" and do not assign "Suitable".
+3. **Suitability:** halal screen, asset provenance and Etsy eligibility. Before shortlisting, record the intended production method (original, licensed, AI-assisted, AI-generated) and check it against Etsy's current Creativity Standards, AI rules and listing-image requirements for that product type. If those cannot be read at source, record Etsy eligibility as "unverified" separately from the halal status, and do not assign either Suitable status overall until eligibility is verified.
 4. **Feasibility:** ability to produce and test the actual promised formats in the available environments, within current Etsy file-count, file-size and file-type limits.
 5. **Economics:** realistic prices, applicable fees, support effort and assumptions.
 
@@ -214,6 +214,8 @@ Record:
 - Source.
 - Retrieval date.
 - Observed or estimated status.
+
+Rank demand only on keywords that match the candidate definition. When only broader parent keywords are available, report them as context, mark candidate-specific demand unknown, and do not place the candidate in the ordinal demand ranking on that basis.
 
 Do not sum related keywords as unique buyers or extrapolate monthly searches into annual sales.
 

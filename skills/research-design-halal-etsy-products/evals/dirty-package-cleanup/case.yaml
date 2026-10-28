@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: dirty-package-cleanup
+expected_outcome: |
+  The response finds the .DS_Store and __MACOSX artifacts and the US Letter PDF that the
+  start guide promises but the zip lacks. It produces a corrected package without system
+  artifacts that either contains a correctly sized US Letter PDF or removes the promise,
+  leaves the original zip unchanged, renders and inspects the pages, performs a clean
+  extraction test, and does not claim physical printing, Windows/macOS checks or verified
+  Etsy upload limits unless actually performed.
+context:
+  scaffold_script: place-files.sh

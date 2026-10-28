@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: handover-brief-budget-spreadsheet
+expected_outcome: |
+  A saved design brief (no spreadsheet built) that links each material improvement to an
+  evidence ID or a labelled assumption and to a testable acceptance check, weights
+  single-shop or single-review evidence as low confidence, includes a customer file map and
+  a delivery route that allows for XLSX not being directly uploadable, names the
+  verification environment for Excel and Google Sheets, records AI-assisted production and
+  the need for Etsy AI disclosure, and keeps zakat calculation out or under qualified review.

@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: xlookup-spreadsheet-compatibility
+expected_outcome: |
+  A working XLSX with Categories, Transactions and Summary sheets including Sadaqah, tested
+  with normal, blank, zero, invalid and boundary inputs against independently computed
+  results, with a verification log naming the engine for each check. It does not claim
+  Excel or Google Sheets compatibility from a LibreOffice result alone, addresses that
+  XLOOKUP is unavailable in older Excel versions, avoids masking errors, and does not call
+  the product ready to list without caveats.

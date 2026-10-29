@@ -60,6 +60,23 @@ Choose print sizes and software requirements explicitly before final production.
 - Do not promise exact bestseller rankings, certain profitability or halal certification.
 - Match conclusion strength to evidence.
 
+### Verify Etsy rules in the user's browser
+
+When a browser tool that acts in the user's own browser is available (for example Claude in Chrome), use it for the access check and to read Etsy's own pages; follow that tool's own guidance first. Pages read this way count as read at source: record the URL, retrieval date and the exact rule.
+
+Before production or listing work, check on Etsy's own pages:
+
+- Digital-listing files: file count, per-file size and accepted file types (including XLSX and ZIP).
+- Creativity Standards and production attributes for the planned production method.
+- AI-disclosure requirements and any restrictions on AI-generated digital items.
+- Listing-image requirements for digital items.
+- Title and tag limits.
+- Current seller fees for the user's country.
+
+Read public help, policy and listing pages only. Do not sign in, change shop or account settings, create or edit listings, buy, message anyone, or open Shop Manager unless the user asks for that specific action. If the user asks you to read their Shop Manager or Marketplace Insights data, read only what they asked for and do not record customer personal data.
+
+When no such browser tool is available, keep the snippet-only rules marked "unverified at source" and ask the user to confirm them on the live listing form.
+
 ### Delegate substantial research
 
 Use specialist agents when available and authorised; keep simple work in one thread.

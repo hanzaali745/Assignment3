@@ -50,3 +50,16 @@ R1–R8 and O1–O4 from the review.
 
 - **G1 (Part 3, Collect demand evidence):** demand is now ranked only on keywords that match the candidate. A broader parent keyword is reported as context, and the candidate's own demand is marked unknown.
 - **G2 (Part 1, gate 3):** when eligibility is unverified, Etsy eligibility is recorded separately from the halal status, and neither Suitable status may be given overall.
+
+## 2026-10-29 — Browser-based Etsy rule checks
+
+- **Part 1, new section "Verify Etsy rules in the user's browser":**
+  - When a tool that acts in the user's own browser is available (such as Claude in Chrome), use it to read Etsy's own pages for:
+    - file limits and file types;
+    - Creativity Standards;
+    - AI disclosure rules;
+    - image requirements;
+    - title and tag limits;
+    - fees.
+  - Rules read this way count as verified at source.
+  - Read-only by default: no sign-in, setting changes, listing edits, purchases or messages unless the user asks.
